@@ -15,7 +15,11 @@ gulp.task('build', function () {
 		.pipe(source('main.js'))
 		.pipe(buffer())
 		.pipe(sourcemaps.init())
-		.pipe(uglify())
+		.pipe(uglify({
+			compress: {
+				drop_console: false
+			}
+		}))
 		.pipe(sourcemaps.write('./maps'))
 		.pipe(gulp.dest('./dist/js'))
 		.pipe(livereload());

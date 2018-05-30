@@ -2,11 +2,12 @@ export default class Meteor {
     constructor(ctx, x, h) {
         this.ctx = ctx
         this.x = x
-        this.y = 0
+        this.y = h
         this.h = h
         this.vx = -(4 + Math.random() * 4)
         this.vy = -this.vx
-        this.len = Math.random() * 300 + 500
+        this.len = Math.random() * 500 + 100
+        console.log(this.x, this.y, this.h, this.len);
     }
 
     flow() {
@@ -14,8 +15,8 @@ export default class Meteor {
         if (this.x < -this.len || this.y > this.h + this.len) {
             return false
         }
-        this.x += this.vx
-        this.y += this.vy
+        // this.x += this.vx
+        this.y -= this.vy
         return true
     }
 
@@ -27,13 +28,15 @@ export default class Meteor {
 
         const PI = Math.PI
         gra.addColorStop(0, 'rgba(255,255,255,1)')
-        gra.addColorStop(1, 'rgba(0,0,0,0)')
+        gra.addColorStop(1, 'rgba(255,255,255,0)')
         ctx.save()
         ctx.fillStyle = gra
         ctx.beginPath()
         //流星头，二分之一圆
-        ctx.arc(this.x, this.y, 1, PI / 4, 5 * PI / 4)
+        ctx.arc(this.x, this.y, Math.random() * 2 + 1, PI / 4, 5 * PI / 4)
         //绘制流星尾，三角形
+        // console.log('lineTo: ', this.x + this.len, this.y - this.len);
+        // ctx.lineTo(this.x + this.len, this.y + this.len)
         ctx.lineTo(this.x + this.len, this.y - this.len)
         ctx.closePath()
         ctx.fill()

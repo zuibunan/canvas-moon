@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  canvas {
+    background: black;
+  }
+  .canvas {
+  position: absolute;
+  background: url(dist/images/bg.jpg) left top no-repeat;
+  background-size: cover;
+}
+  </style>
+</head>
+<body>
+  <canvas id="canvas1" width="400" height="400" ></canvas>
+  <script>
+      var canvas = document.getElementById('canvas1');
+      var ctx = canvas.getContext('2d');
+
+      //当cycle1在cycle2里边时，并且圆心重合
+      var cycle1 = {
+          x: 300,
+          y: 10,
+          r: 2
+      };
+      var cycle2 = {
+          x: 200,
+          y: 300,
+          r: 2
+      };
+
+      ctx.beginPath();
+      ctx.arc(cycle1.x, cycle1.y, cycle1.r, 0, Math.PI * 2, false);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(cycle2.x, cycle2.y, cycle2.r, 0, Math.PI * 2, false);
+      ctx.stroke();
+
+      //使用经向渐变
+      var grd = ctx.createRadialGradient(cycle1.x, cycle1.y, cycle1.r, cycle2.x, cycle2.y, cycle2.r);
+      grd.addColorStop(0, 'rgba(255,255,255,1)');
+      // grd.addColorStop(0.5, 'rgba(0,255,0,0.75)');
+      grd.addColorStop(1, 'rgba(0,0,0,0)');
+
+      ctx.fillStyle = grd;
+      ctx.fillRect(0, 0, 500, 500);
+
+  </script>
+</body>
+</html>
